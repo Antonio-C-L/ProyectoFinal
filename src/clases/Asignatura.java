@@ -1,8 +1,8 @@
 package clases;
 
 public class Asignatura {
-	private int idAsignatura;
 	private String nombre;
+	private String nombreClave;
 	private int numHoras;
 	
 	
