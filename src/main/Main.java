@@ -14,14 +14,18 @@ public class Main {
 
 	public static void main(String[] args) {
 		DataAccess da=new DataAccess();
-		
-		Alumno alumno=new Alumno("12345678A", "Pepe", "Garcia", "Vaquero", LocalDate.parse("1990-05-10"), 2);
+
+		Alumno alumno=new Alumno("12345678A", "Luis", "Garcia", "Romon", LocalDate.parse("1990-01-10"), 2);
 //		da.addAlumno(alumno);
-		List <String> lista=da.ListaAlumnos();
-		
-		for (String string : lista) {
-			System.out.println(string);
-		}
+		List <String> list=da.ListaAlumnos();
+//		for (String string : list) {
+//			System.out.println(string);
+//		}
+
+//		System.out.println(da.buscarAlumno("12345678A"));
+//
+//		da.updateAlumno(alumno);
+//		System.out.println(da.buscarAlumno("12345678A"));
 		
 		da.close();
 	}
