@@ -2,7 +2,7 @@ package clases;
 
 import java.time.LocalDate;
 
-public abstract class Persona {
+public abstract class Persona implements Comparable<Persona>{
 	private String dni;
 	private String nombre;
 	private String apellido1;
@@ -46,5 +46,16 @@ public abstract class Persona {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	
-	
+	/**
+	 * CompareTo creado para ordenar las series al compararlas segun el nombre //TODO cambiar/terminar
+	 * 
+	 * Precondiciones: Ambas series deben existir
+	 * Postcondicones: Se devuelve un numero segun el orden
+	 * Entrada: Serie a comparar
+	 * Salida: Entero que indicara el orden
+	 */
+	@Override
+	public int compareTo(Persona o) {
+		return (getApellido1()+getApellido2()+getNombre()).compareTo((o.getApellido1()+o.getApellido2()+o.getNombre()));//Compara y devuelve la diferencia del primer caracter que sea distinto, los siguientes no los tiene cuenta
+	}
 }

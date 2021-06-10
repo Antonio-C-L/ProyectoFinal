@@ -40,7 +40,8 @@ public class DataAccess {
 			e.printStackTrace();
 		}
 	}
-
+	
+	//Obtener ultimo ID
 	private int getUltimoID() {
 		String miOrden="select top 1 ID from "+Alumno.class.getSimpleName()+" order by ID desc";
 		int num=0;
@@ -74,9 +75,10 @@ public class DataAccess {
 		}
 		return exist;
 	}
+	
 
-	public List<String> ListaAlumnos() {
-		String miOrden = "select "+TABLA_ALUMNO[1]+","+TABLA_ALUMNO[2]+","+TABLA_ALUMNO[3]+","+TABLA_ALUMNO[4]+" "+"from"+" "+Alumno.class.getSimpleName();
+	public List<String> listaAlumnos() {
+		String miOrden = "select "+TABLA_ALUMNO[1]+","+TABLA_ALUMNO[2]+","+TABLA_ALUMNO[3]+","+TABLA_ALUMNO[4]+" from"+" "+Alumno.class.getSimpleName();
 		List<String> list=new ArrayList<String>();
 		try {
 			sentencia = conexionBD.createStatement();
@@ -133,7 +135,7 @@ public class DataAccess {
 		}
 	}
 
-	public String buscarDatosAlumno(String dni) {
+	public String buscarAlumnoPorDNI(String dni) {
 		String miOrden = "select "+TABLA_ALUMNO[1]+","+TABLA_ALUMNO[2]+","+TABLA_ALUMNO[3]+","+TABLA_ALUMNO[4]+" "+"from"+" "+Alumno.class.getSimpleName()+" where dni=\'"+dni+"\'";
 		String alumno = null;
 		try {
@@ -150,7 +152,10 @@ public class DataAccess {
 		return alumno;
 	}
 
-
+	public void reconstruccionAlumno() {
+		
+	}
+	
 	public void close() {
 		cerrar(conexionBD);
 	}
