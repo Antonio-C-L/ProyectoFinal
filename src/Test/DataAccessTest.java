@@ -31,14 +31,14 @@ class DataAccessTest {
 	void testBuscarAlumno() {
 		da.addAlumno(alumno);
 		assertTrue(da.buscarAlumnoPorDNI(alumno.getDni())!=null);
-		da.deleteAlumno(alumno.getDni());
+		da.delAlumno(alumno.getDni());
 	}
 	
 	@Test
 	void testEliminarAlumno() {
 		da.addAlumno(alumno);
 		assertTrue(da.buscarAlumnoPorDNI(alumno.getDni())!=null);
-		da.deleteAlumno(alumno.getDni());
+		da.delAlumno(alumno.getDni());
 		assertFalse(da.buscarAlumnoPorDNI(alumno.getDni())!=null);
 	}
 	
@@ -47,7 +47,7 @@ class DataAccessTest {
 		assertFalse(da.buscarAlumnoPorDNI(alumno.getDni())!=null);
 		da.addAlumno(alumno);
 		assertTrue(da.buscarAlumnoPorDNI(alumno.getDni())!=null);
-		da.deleteAlumno(alumno.getDni());
+		da.delAlumno(alumno.getDni());
 	}
 	
 	

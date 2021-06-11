@@ -1,16 +1,7 @@
 package main;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Properties;
-
 import clases.Alumno;
-import clases.Asignatura;
-import clases.Persona;
-import clases.Profesor;
 import dataAccess.DataAccess;
 
 public class Main {
@@ -21,7 +12,7 @@ public class Main {
 		Alumno alumno=new Alumno("12345678A", "Antonio", "Candela", "Lora", LocalDate.parse("2002-06-10"));
 		Alumno alumno2=new Alumno("12345678A", "Antonio", "Candela", "Lora", LocalDate.parse("2002-06-10"));
 		//		da.addAlumno(alumno);
-		List <String> list=da.listaAlumnos();
+//		List <String> list=da.listaAlumnos();
 //		for (String string : list) {
 //			System.out.println(string);
 //		}
@@ -29,12 +20,19 @@ public class Main {
 //		System.out.println(da.buscarAlumno("12345678A"));
 //
 //		da.updateAlumno(alumno);
-		da.deleteAlumno("12345678Z");
-//		System.out.println(da.buscarAlumno("12345678A"));6575
+		da.delAlumno("12345678Z");
+//		System.out.println(da.buscarAlumno("12345678A"));
 
 		System.out.println(alumno.compareTo(alumno2));
 
-		System.out.println(LocalDate.now().minusYears(20));
+		String[] alumnoA=da.buscarAlumnoPorDNI("12345678A");
+		for (String string : alumnoA) {
+			System.out.println(string);
+		}
+		
+		Alumno a=da.reconstruccionAlumno(alumnoA);
+		System.out.println(a.toString());
+
 //		System.out.println(alumno.isMayorEdad());
 		da.close();
 	}

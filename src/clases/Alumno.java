@@ -1,19 +1,22 @@
 package clases;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Alumno extends Persona{
 	private int id;
-	private Nota notas;
+	private List<Nota> notas;
+	
 	public static final int DIECIOCHO=18;
 	public static final int CERO=0;
+	
 	public int getIdAlumno() {
 		return id;
 	}
-	public Nota getNotas() {
+	public List<Nota> getNotas() {
 		return notas;
 	}
-	public void setNotas(Nota notas) {
+	public void setNotas(List<Nota> notas) {
 		this.notas = notas;
 	}
 
@@ -31,6 +34,10 @@ public class Alumno extends Persona{
 		return LocalDate.now().getDayOfYear()-getFechaNacimiento().getDayOfYear()>=CERO;
 	}
 	
+	/**	//TODO documentar
+	 * 
+	 * @return
+	 */
 	public boolean isMayorEdad() {
 		return anyoDeMayoria() ? compareDay() : anyoMayor();
 	}
@@ -64,7 +71,7 @@ public class Alumno extends Persona{
 	@Override
 	public String toString() {
 		StringBuilder sb=new StringBuilder();
-		sb.append(getNombre()).append(getApellido1());
+		sb.append(getNombre()).append(" ").append(getApellido1()).append(" ").append(getApellido2()).append(" ").append(getFechaNacimiento());
 		return sb.toString();
 	}
 	

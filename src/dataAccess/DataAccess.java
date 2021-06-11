@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -19,7 +20,7 @@ public class DataAccess {
 	private Statement sentencia = null;
 
 	public static final String[] TABLA_ALUMNO={"ID", "DNI", "Nombre", "Apellido1", "Apellido2", "FechaNacimiento"};
-	public static final String INSERT_ALUMNO = "insert into "+Alumno.class.getSimpleName()+" (ID, DNI, Nombre, Apellido1, Apellido2, FechaNacimiento) values (";
+	public static final String INSERT_ALUMNO = "insert into "+Alumno.class.getSimpleName()+" (ID, DNI, Nombre, Apellido1, Apellido2, FechaNacimiento) values (";//TODO quitar/cambiar/arreglar
 	public static final String PROPERTIES="src\\config\\config.properties";
 
 	public DataAccess() {
@@ -40,7 +41,7 @@ public class DataAccess {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//Obtener ultimo ID
 	private int getUltimoID() {
 		String miOrden="select top 1 ID from "+Alumno.class.getSimpleName()+" order by ID desc";
@@ -75,7 +76,7 @@ public class DataAccess {
 		}
 		return exist;
 	}
-	
+
 
 	public List<String> listaAlumnos() {
 		String miOrden = "select "+TABLA_ALUMNO[1]+","+TABLA_ALUMNO[2]+","+TABLA_ALUMNO[3]+","+TABLA_ALUMNO[4]+" from"+" "+Alumno.class.getSimpleName();
@@ -106,9 +107,9 @@ public class DataAccess {
 		}
 	}
 
-	public void deleteAlumno(String dni) {
+	public void delAlumno(String dni) {
 		if(existeAlumno(dni)) {
-			String miOrden = "delete from Alumno where DNI=\'"+dni+"\'";
+			String miOrden = "delete from "+Alumno.class.getSimpleName()+" where DNI=\'"+dni+"\'";
 			try {
 				sentencia=conexionBD.createStatement();
 				sentencia.executeUpdate(miOrden);
@@ -122,7 +123,7 @@ public class DataAccess {
 
 	public void updateAlumno(Alumno alumno) {
 		if(existeAlumno(alumno.getDni())) {
-			String miOrden = "update Alumno set "+TABLA_ALUMNO[2]+"=\'"+alumno.getNombre()+"\', "+TABLA_ALUMNO[3]+"=\'"+alumno.getApellido1()+"\', "+TABLA_ALUMNO[4]+"=\'"+alumno.getApellido2()+"\', "+TABLA_ALUMNO[5]+"=\'"+alumno.getFechaNacimiento().toString()+"\' where "+TABLA_ALUMNO[1]+"=\'"+alumno.getDni()+"\'";
+			String miOrden = "update "+Alumno.class.getSimpleName()+" set "+TABLA_ALUMNO[2]+"=\'"+alumno.getNombre()+"\', "+TABLA_ALUMNO[3]+"=\'"+alumno.getApellido1()+"\', "+TABLA_ALUMNO[4]+"=\'"+alumno.getApellido2()+"\', "+TABLA_ALUMNO[5]+"=\'"+alumno.getFechaNacimiento().toString()+"\' where "+TABLA_ALUMNO[1]+"=\'"+alumno.getDni()+"\'";
 			System.out.println(miOrden);
 			try {
 				sentencia=conexionBD.createStatement();
@@ -135,14 +136,14 @@ public class DataAccess {
 		}
 	}
 
-	public String buscarAlumnoPorDNI(String dni) {
-		String miOrden = "select "+TABLA_ALUMNO[1]+","+TABLA_ALUMNO[2]+","+TABLA_ALUMNO[3]+","+TABLA_ALUMNO[4]+" "+"from"+" "+Alumno.class.getSimpleName()+" where dni=\'"+dni+"\'";
-		String alumno = null;
+	public String[] buscarAlumnoPorDNI(String dni) {
+		String miOrden = "select "+TABLA_ALUMNO[1]+","+TABLA_ALUMNO[2]+","+TABLA_ALUMNO[3]+","+TABLA_ALUMNO[4]+","+TABLA_ALUMNO[5]+" from"+" "+Alumno.class.getSimpleName()+" where dni=\'"+dni+"\'";
+		String[] alumno = null;
 		try {
 			sentencia=conexionBD.createStatement();
 			ResultSet res = sentencia.executeQuery(miOrden);
 			while (res.next()) {
-				alumno=res.getString(TABLA_ALUMNO[1])+" "+res.getString(TABLA_ALUMNO[2])+" "+res.getString(TABLA_ALUMNO[3])+" "+res.getString(TABLA_ALUMNO[4]);
+				alumno = new String[] {res.getString(TABLA_ALUMNO[1]), res.getString(TABLA_ALUMNO[2]), res.getString(TABLA_ALUMNO[3]), res.getString(TABLA_ALUMNO[4]), res.getString(TABLA_ALUMNO[5])};
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -152,10 +153,10 @@ public class DataAccess {
 		return alumno;
 	}
 
-	public void reconstruccionAlumno() {
-		
+	public Alumno reconstruccionAlumno(String[] datosAlumno) {
+		return new Alumno(datosAlumno[0], datosAlumno[1], datosAlumno[2], datosAlumno[3], LocalDate.parse(datosAlumno[4]));
 	}
-	
+
 	public void close() {
 		cerrar(conexionBD);
 	}
