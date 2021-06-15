@@ -24,6 +24,11 @@ public class Alumno extends Persona{
 		super(dni, nombre, apellido1, apellido2, fechaNacimiento);
 	}
 
+	public Alumno(int id, String dni, String nombre, String apellido1, String apellido2, LocalDate fechaNacimiento) {
+		super(dni, nombre, apellido1, apellido2, fechaNacimiento);
+		this.id = id;
+	}
+	
 	private boolean anyoMayor() {
 		return LocalDate.now().getYear()-getFechaNacimiento().getYear()>DIECIOCHO;
 	}
@@ -34,20 +39,32 @@ public class Alumno extends Persona{
 		return LocalDate.now().getDayOfYear()-getFechaNacimiento().getDayOfYear()>=CERO;
 	}
 	
-	/**	//TODO documentar
+	/**	Metodo que comprueba si el alumno es mayor de edad
+	 * <p>
+	 * Precondiciones: El Alumno que llame al metodo no puede ser null
+	 * <br>
+	 * Postcondiciones: Ninguna
+	 * <br>
 	 * 
-	 * @return
+	 * @return boolean: True si es mayor, False si es menor
+	 * 
+	 * @author Antonio
 	 */
 	public boolean isMayorEdad() {
 		return anyoDeMayoria() ? compareDay() : anyoMayor();
 	}
 	
-	/** Metodo para comprobar si dos series son iguales (comprobando el nombre) //TODO cambiar/terminar
+	/** Metodo equals para comprobar si un objeto es igual al Alumno
+	 * <p>
+	 * Precondiciones: El Alumno que llame al metodo no puede ser null
+	 * <br>
+	 * Postcondiciones: Ninguna
+	 * <br>
+	 * @param obj El objeto con el que comparamos
 	 * 
-	 * Precondiciones: Se tiene que introduccir por parametros una serie valida segun la clase
-	 * Postcondiciones: Devolver un booleano
-	 * Entrada: Serie a comparar si son iguales
-	 * Salida: Booleano que indica si son iguales
+	 * @return boolean: True si es igual, False si es distinto 
+	 * 
+	 * @author Antonio
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -61,12 +78,15 @@ public class Alumno extends Persona{
 		return iguales;
 	}
 	
-	/** Metodo para pasar el objeto a string //TODO terminar/Cambiar
-	 * 
-	 * Precondiciones: Ninguna
+	/** Metodo para pasar el objeto a string
+	 * <p>
+	 * Precondiciones:  El Alumno que llame al metodo no puede ser null
+	 * <br>
 	 * Postcondiciones: Ninguna
-	 * Entrada: Nada
-	 * Salida: String de los datos
+	 * <br>
+	 * @return String: El Objeto Alumno pasado a String
+	 * 
+	 * @author Antonio
 	 */
 	@Override
 	public String toString() {
